@@ -3,18 +3,18 @@ import sys
 import time
 import tkinter
 from tkinter import *
-from ttkbootstrap import *
+# from ttkbootstrap import *
 import videoCompound
 import extra_message_panel
 
 class MainWindows(Tk):
     def __init__(self):
         super().__init__()
-        self.title("简易视频编辑软件")  # 给界面添加一个标题
+        self.title("简易大杂烩软件")  # 给界面添加一个标题
         self.geometry("544x344+400+200")  # 定义界面尺寸
         # self.resizable(0, 0)  # 定义界面窗口大小不可改变
 
-        self.iconbitmap('123.ico')
+        # self.iconbitmap('123.ico')
 
         self.TotalLog = 'default'
         self.video_dispose = videoCompound.video_dispose()
@@ -33,14 +33,23 @@ class MainWindows(Tk):
         # 给界面设置一个主题
         #self.style = Style(theme="flatly")
         # 创建一个界面标题
-        self.label_title = Label(self, text="简易视频编辑软件", font="微软雅黑 20 bold")
+        self.label_title = Label(self, text="简易大杂烩软件", font="微软雅黑 20 bold")
         self.label_title.place(relwidth=1, relheight=0.18, relx=0, rely=0)
-        # 创建左侧按钮显示区域
-        self.Pane_left = PanedWindow(self)
-        self.Pane_left.place(relwidth=0.15, relheight=0.82, relx=0, rely=0.18)
+
+        # 创建菜单
+        self.menu_bar = Menu(self)
+        self.option_menu = Menu(self.menu_bar, tearoff=0)
+        self.option_menu.add_command(label='视频合成', command=self.create_frame01)
+        self.menu_bar.add_cascade(label='功能', menu=self.option_menu)
+
+        self.config(menu=self.menu_bar)
+
+        # # 创建左侧按钮显示区域
+        # self.Pane_left = PanedWindow(self)
+        # self.Pane_left.place(relwidth=0.15, relheight=0.82, relx=0, rely=0.18)
         # 创建界面01控制按钮
-        self.button_frame01 = Button(self.Pane_left, text="视频合成", command=self.create_frame01)
-        self.button_frame01.place(relwidth=1, relheight=0.08, relx=0, rely=0.2)
+        # self.button_frame01 = Button(self.Pane_left, text="视频合成", command=self.create_frame01)
+        # self.button_frame01.place(relwidth=1, relheight=0.08, relx=0, rely=0.2)
 
     def setup_frame01(self):
         self.frame01 = Frame(self, relief="groove")
@@ -64,7 +73,7 @@ class MainWindows(Tk):
 
         # print(self.sourcepath)  # 现在 self.sourcepath 将是 Entry 组件的实例
 
-        self.button = Button(self.frame01, text='开始合成', command=self.video_dispose_caller)
+        self.button = Button(self.frame01, text='开始合成', bg='sky blue', command=self.video_dispose_caller)
         self.button.grid(row=1, column=2, pady=10)
 
     def video_dispose_caller(self):
